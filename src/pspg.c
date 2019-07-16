@@ -132,6 +132,15 @@ min_int(int a, int b)
 		return b;
 }
 
+int
+max_int(int a, int b)
+{
+	if (a >= b)
+		return a;
+	else
+		return b;
+}
+
 /*
  * Prints error message and stops application
  */
@@ -3252,7 +3261,8 @@ recheck_left:
 					}
 					else
 					{
-						int		move_left = 30;
+                                                int             max_move_left = max_int(scrdesc.main_maxx/2,30);
+						int		move_left = max_move_left;
 
 						if (cursor_col == 0 && scrdesc.footer_rows > 0)
 						{
@@ -3264,7 +3274,7 @@ recheck_left:
 						{
 							int		i;
 
-							for (i = 1; i <= 30; i++)
+							for (i = (max_move_left/2)+1; i <= max_move_left + 1; i++)
 							{
 								int		pos = scrdesc.fix_cols_cols + cursor_col - i;
 
@@ -3274,7 +3284,7 @@ recheck_left:
 								if (desc.headline_transl[pos] == 'I')
 								{
 									move_left = i - 1;
-									break;
+									//break;
 								}
 							}
 						}
@@ -3314,7 +3324,8 @@ recheck_right:
 					}
 					else
 					{
-						int		move_right = 30;
+                                                int             max_move_right = max_int(scrdesc.main_maxx/2,30);
+						int		move_right = max_move_right;
 						int		max_cursor_col;
 						int		new_cursor_col = cursor_col;
 
@@ -3323,12 +3334,12 @@ recheck_right:
 							int		i;
 							char   *str = &desc.headline_transl[scrdesc.fix_cols_cols + cursor_col];
 
-							for (i = 1; i <= 30; i++)
+							for (i = max_move_right/2 - 1; i < max_move_right; i++)
 							{
 								if (str[i] == 'I')
 								{
 									move_right = i + 1;
-									break;
+									//break;
 								}
 							}
 						}
